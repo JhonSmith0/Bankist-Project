@@ -1,36 +1,30 @@
 import renderOperacoes from "./view/renderOperacoes.js";
 import renderSummary from "./view/renderSummary.js";
-import { accounts, atual, requestLoan, sendMoney } from "./model.js";
+import * as model from "./model.js";
+import "./view/date.js";
 
 import sendMoneyView from "./view/sendMoney.js";
 import requestLoanView from "./view/requestLoan.js";
-import "./view/date.js";
+import closeAccountView from "./view/closeAccountView.js";
 
-renderOperacoes.render(atual.movements);
-renderSummary.render(atual);
+import loginView from "./view/loginView.js";
+import app from "./view/app.js";
 
-function controlSendMoney(e) {
-  console.log(e);
-  e.preventDefault();
-
+function controlSendMoney() {
   const [dst, value] = [sendMoneyView.dst, sendMoneyView.value];
-  const status = sendMoney(atual.user, dst, value);
-  console.log(status);
-  if (status) {
-    renderOperacoes.render(atual.movements);
-    renderSummary.render(atual);
-  }
+  const status = model.sendMoney(atual.user, dst, value);
+
+  if (!status) return;
+
+  renderOperacoes.render(atual.movements);
+  renderSummary.render(atual);
 }
 
-function controlRequestLoan(e) {
-  e.preventDefault();
-
+function controlRequestLoan() {
   const value = +requestLoanView.value;
-
-  console.log(value);
   if (!value) return;
 
-  requestLoan(value);
+  model.requestLoan(value);
   renderOperacoes.render(atual.movements);
   renderSummary.render(atual);
 }
@@ -39,6 +33,29 @@ function controlSort() {
   renderOperacoes.render(atual.movements.reverse());
 }
 
-sendMoneyView.addHandler(controlSendMoney);
-requestLoanView.addHandler(controlRequestLoan);
-renderSummary.addHandlerSort(controlSort);
+function controlCloseAcc(user, pin) {
+  const status = model.closeAccount(user, pin);
+  if (!status) return;
+  app.hidden();
+}
+
+function controlLogin(user, pin) {
+  const status = model.login(user, pin);
+  if (!status) return;
+
+  renderOperacoes.render(model.atual.movements);
+  renderSummary.render(model.atual);
+
+  app.visible();
+  app.clearInputs();
+}
+
+function init() {
+  sendMoneyView.addHandler(controlSendMoney);
+  requestLoanView.addHandler(controlRequestLoan);
+  renderSummary.addHandlerSort(controlSort);
+  closeAccountView.addHandlerClick(controlCloseAcc);
+  loginView.addHandlerClick(controlLogin);
+}
+
+init();

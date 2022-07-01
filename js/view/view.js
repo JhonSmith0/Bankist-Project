@@ -1,6 +1,6 @@
 import { VISIBLE_CLASS, HIDDEN_CLASS } from "../config.js";
 
-class view {
+class _ {
   _element;
   _data;
 
@@ -19,4 +19,4 @@ class view {
   }
 }
 
-export default view;
+export default _;

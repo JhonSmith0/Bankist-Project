@@ -295,3 +295,9 @@ h2 {
 .timer {
   font-weight: 600;
 }
+
+.hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}

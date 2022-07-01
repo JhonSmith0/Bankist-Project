@@ -118,6 +118,30 @@ export function requestLoan(value) {
   atual.movements.push(obj);
 }
 
+export function closeAccount(user, pin) {
+  const userObj = findUser(user);
+  if (!userObj) return;
+  if (userObj.pin != pin) return;
+
+  // Deleting the account
+  accounts.splice(accounts.indexOf(userObj), 1);
+
+  // Reseting atual to undefined
+  atual = undefined;
+
+  return true;
+}
+
+export function login(user, pin) {
+  const userObj = findUser(user);
+  if (!userObj) return;
+  if (pin + "" !== userObj.pin + "") return;
+
+  atual = userObj;
+
+  return true;
+}
+
 export const currencies = new Map([
   ["USD", "United States dollar"],
   ["EUR", "Euro"],

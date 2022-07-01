@@ -1,7 +1,10 @@
 export default {
   addHandler(handler) {
     const form = document.querySelector(".form.form--transfer");
-    form.addEventListener("submit", handler);
+    form.addEventListener("submit", function (e) {
+      e.preventDefault();
+      handler();
+    });
   },
 
   get dst() {
