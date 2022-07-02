@@ -40,7 +40,11 @@ function controlCloseAcc(user, pin) {
 }
 
 function controlLogin(user, pin) {
+  if (!user || !pin) return;
+
   const status = model.login(user, pin);
+  app.clearInputs();
+
   if (!status) return;
 
   renderOperacoes.render(model.atual.movements);
