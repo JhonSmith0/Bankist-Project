@@ -46,6 +46,7 @@ class renderSummary extends View {
   addHandlerSort(handler) {
     this._element.addEventListener("click", function (e) {
       const sort = this.querySelector(".btn--sort");
+      if (e.target !== sort) return;
       const up = "↑";
       const down = "↓";
 

@@ -1,7 +1,7 @@
 import renderOperacoes from "./view/renderOperacoes.js";
 import renderSummary from "./view/renderSummary.js";
 import * as model from "./model.js";
-import "./view/date.js";
+import dateUpdate from "./view/date.js";
 
 import sendMoneyView from "./view/sendMoney.js";
 import requestLoanView from "./view/requestLoan.js";
@@ -49,6 +49,7 @@ function controlLogin(user, pin) {
 
   renderOperacoes.render(model.atual.movements);
   renderSummary.render(model.atual);
+  dateUpdate.update();
 
   console.log(status, model.atual);
   app.visible();
