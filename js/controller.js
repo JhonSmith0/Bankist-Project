@@ -12,12 +12,12 @@ import app from "./view/app.js";
 
 function controlSendMoney() {
   const [dst, value] = [sendMoneyView.dst, sendMoneyView.value];
-  const status = model.sendMoney(atual.user, dst, value);
+  const status = model.sendMoney(model.atual.user, dst, value);
 
   if (!status) return;
 
-  renderOperacoes.render(atual.movements);
-  renderSummary.render(atual);
+  renderOperacoes.render(model.atual.movements);
+  renderSummary.render(model.atual);
 }
 
 function controlRequestLoan() {
@@ -25,12 +25,12 @@ function controlRequestLoan() {
   if (!value) return;
 
   model.requestLoan(value);
-  renderOperacoes.render(atual.movements);
-  renderSummary.render(atual);
+  renderOperacoes.render(model.atual.movements);
+  renderSummary.render(model.atual);
 }
 
 function controlSort() {
-  renderOperacoes.render(atual.movements.reverse());
+  renderOperacoes.render(model.atual.movements.reverse());
 }
 
 function controlCloseAcc(user, pin) {
@@ -50,6 +50,7 @@ function controlLogin(user, pin) {
   renderOperacoes.render(model.atual.movements);
   renderSummary.render(model.atual);
 
+  console.log(status, model.atual);
   app.visible();
   app.clearInputs();
 }

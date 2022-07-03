@@ -31,13 +31,15 @@ class renderSummary extends View {
     this._balanceValue.innerHTML = TOTAL + "€";
 
     return `<p class="summary__label">In</p>
-    <p class="summary__value summary__value--in">${IN.toFixed(2)}€</p>
+    <p class="summary__value summary__value--in">${Math.abs(IN).toFixed(2)}€</p>
     <p class="summary__label">Out</p>
-    <p class="summary__value summary__value--out">${OUT.toFixed(2)}€</p>
-    <p class="summary__label">Interest</p>
-    <p class="summary__value summary__value--interest">${INTEREST.toFixed(
+    <p class="summary__value summary__value--out">${Math.abs(OUT).toFixed(
       2
     )}€</p>
+    <p class="summary__label">Interest</p>
+    <p class="summary__value summary__value--interest">${Math.abs(
+      INTEREST
+    ).toFixed(2)}€</p>
     <button class="btn--sort">↓ SORT</button>`;
   }
 

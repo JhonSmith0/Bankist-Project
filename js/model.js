@@ -102,6 +102,7 @@ export function sendMoney(user, userDst, value) {
   if (value > getBalance(userAcc)) return;
 
   const data = Date.now();
+  value = Number(value);
 
   userAcc.movements.push({ data, value: -value });
   dstAcc.movements.push({ data, value });
@@ -112,6 +113,7 @@ export function sendMoney(user, userDst, value) {
 export function requestLoan(value) {
   const balance = getBalance(atual);
 
+  value = Number(value);
   const data = Date.now();
   const obj = { data, value };
 
@@ -122,6 +124,7 @@ export function closeAccount(user, pin) {
   const userObj = findUser(user);
   if (!userObj) return;
   if (userObj.pin != pin) return;
+  if (userObj !== atual) return;
 
   // Deleting the account
   accounts.splice(accounts.indexOf(userObj), 1);
